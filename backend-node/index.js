@@ -10,14 +10,20 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-// Rutas
+// Conexión a MongoDB
+connectDB();
+
+// ✅ Importar y montar rutas (solo una vez)
+const pedidosRoutes = require('./routes/pedidos');
+app.use(pedidosRoutes);
+
+// Ruta de prueba
 app.get('/', (req, res) => {
   res.send('Servidor Node.js funcionando!');
 });
 
-// Conexión a la base de datos
-connectDB();
 
+// Escuchar en el puerto
 app.listen(PORT, () => {
   console.log(`🚀 Servidor escuchando en http://localhost:${PORT}`);
 });
